@@ -64,6 +64,15 @@
     <Content Include="images\btnBetMax.png" />
     <Content Include="images\btnReset.png" />
     <Content Include="images\btnSpin.png" />
+    <Content Include="images\items\itmApple.png" />
+    <Content Include="images\items\itmDiamond.png" />
+    <Content Include="images\items\itmDirt.png" />
+    <Content Include="images\items\itmEmerald.png" />
+    <Content Include="images\items\itmGold.png" />
+    <Content Include="images\items\itmIron.png" />
+    <Content Include="images\items\itmStone.png" />
+    <Content Include="images\items\itmWood.png" />
+    <Content Include="images\slot machine-V3.png" />
     <Content Include="scripts\game.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -74,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\main.css" />
-    <Content Include="images\slot machine-V3.png" />
     <Content Include="index.html" />
     <Content Include="scripts\game.ts" />
     <Content Include="scripts\lib\createjs-lib.d.ts" />
@@ -92,9 +100,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="items\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -1,5 +1,9 @@
 ﻿// CreateJS Boilerplate for COMP397
-
+/// <reference path="lib/createjs-lib.d.ts" />
+/// <reference path="lib/easeljs.d.ts" />
+/// <reference path="lib/tweenjs.d.ts" />
+/// <reference path="lib/soundjs.d.ts" />
+/// <reference path="lib/preloadjs.d.ts" />
 
 // VARIABLES ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 var canvas; // Reference to the HTML 5 Canvas element
