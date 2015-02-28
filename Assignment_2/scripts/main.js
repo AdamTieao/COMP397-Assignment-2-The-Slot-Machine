@@ -59,6 +59,7 @@ var btnBet1;
 var btnBet5;
 var btnBet10;
 var btnBet100;
+var btnRestart;
 var background;
 var btnSpin;
 var betMoney;
@@ -274,6 +275,9 @@ function createUI() {
     spinButton = new Button("assets/images/spinButton.png", 410, 545);
     game.addChild(spinButton.getImage());
     */
+    
+    btnRestart = new Button("images/btnRestart.png", 310, 96);
+    game.addChild(btnRestart.getImage());
 
     //Reset Button
     btnReset = new Button("images/btnReset.png", 53, 481);

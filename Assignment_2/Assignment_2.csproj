@@ -63,6 +63,7 @@
     <Content Include="images\btnBet5.png" />
     <Content Include="images\btnBetMax.png" />
     <Content Include="images\btnReset.png" />
+    <Content Include="images\btnRestart.png" />
     <Content Include="images\btnSpin.png" />
     <Content Include="images\items\itmApple.png" />
     <Content Include="images\items\itmDiamond.png" />
