@@ -68,6 +68,7 @@ var textMoney;
 var textBet;
 var textWinnings;
 var textJackpot;
+var textLose;
 
 // Bet Items
 var apple = 0;
@@ -131,9 +132,15 @@ function btnSpinClicked(event) {
                 tiles[index] = new createjs.Bitmap("images/items/itm" + spinResult[index] + ".png");
                 reelContainers[index].addChild(tiles[index]);
             }
+            game.removeChild(textLose);
+            game.removeChild(textWinnings);
             determineWinnings();
-            game.removeChild(textMoney)
+            checkJackPot();
+            game.removeChild(textMoney);
             addYouHaveText();
+            game.removeChild(textJackpot);
+            addJackpotText();
+            
         }
         else {
             alert("Are you kidding me? You cannot win any money without paying!");
@@ -146,10 +153,25 @@ function btnSpinClicked(event) {
 
 }
 
+function checkJackPot() {
+    /* compare two random values */
+    var jackPotTry = Math.floor(Math.random() * 51 + 1);
+    var jackPotWin = Math.floor(Math.random() * 51 + 1);    
+    
+    if (jackPotTry == jackPotWin) {
+        alert("You Won the $" + jackPot / 2 + " Jackpot!!");
+        youHave = youHave + jackPot / 2;
+        jackPot = jackPot / 2;
+    }
+    
+}
+
 function restart() {
     if (confirm("Restart the game?")) {
         game.removeChild(textMoney);
         game.removeChild(textBet);
+        game.removeChild(textWinnings);
+        game.removeChild(textLose);
         for (var index = 0; index < NUM_REELS; index++) {
             reelContainers[index].removeAllChildren();
         }
@@ -236,17 +258,40 @@ function checkRange(value, lowerBounds, upperBounds) {
 }
 
 function addBetText() {
-    textBet = new createjs.Text(playerBet, "bold 86px Arial");
+    textBet = new createjs.Text(playerBet, "bold 20px Arial");
     game.addChild(textBet);
-    textBet.x = 10;
-    textBet.y = 10;    
+    textBet.x = 96;
+    textBet.y = 434;    
 }
 
 function addYouHaveText() {
-    textMoney = new createjs.Text(youHave, "bold 86px Arial");
+    textMoney = new createjs.Text(youHave, "bold 20px Arial");
     game.addChild(textMoney);
-    textMoney.x = 10;
-    textMoney.y = 100;
+    textMoney.x = 312;
+    textMoney.y = 434;
+}
+
+function addJackpotText() {
+    textJackpot = new createjs.Text(jackPot, "bold 20px Arial");
+    game.addChild(textJackpot);
+    textJackpot.x = 183;
+    textJackpot.y = 101;
+}
+
+function addWinText(a){
+    textWinnings = new createjs.Text("You Win $" + a + "!", "bold 40px Arial", "red");
+    
+    game.addChild(textWinnings);
+    textWinnings.x = 90;
+    textWinnings.y = 141;    
+}
+
+function addLoseText() {
+    textLose = new createjs.Text("You Lose!", "bold 40px Arial", "black");
+    
+    game.addChild(textLose);
+    textLose.x = 90;
+    textLose.y = 141;
 }
 
 function createUI() {
@@ -255,6 +300,7 @@ function createUI() {
 
     addBetText();
     addYouHaveText();
+    addJackpotText();
     
 
     for (var index = 0; index < NUM_REELS; index++) {
@@ -318,6 +364,7 @@ function createUI() {
     btnBet10.getImage().addEventListener("click", btnBet10Clicked);
     btnBet100.getImage().addEventListener("click", btnBet100Clicked);
     btnBetMax.getImage().addEventListener("click", btnBetMaxClicked);
+    btnRestart.getImage().addEventListener("click", restart);
 
     /*
     //Testing Item Locations(x, y)
@@ -379,7 +426,7 @@ function Reels() {
 }
 
 /* This function calculates the player's winnings, if any */
-function determineWinnings() {
+function determineWinnings() {    
     if (dirt == 0) {
         if (wood == 3) {
             winnings = playerBet * 10;
@@ -433,6 +480,7 @@ function determineWinnings() {
         winNumber++;        
         resetItem();
         youHave = youHave + winnings;
+        addWinText(winnings);
         console.log("You win " + winnings + "!");
         console.log(youHave);
         
@@ -443,6 +491,7 @@ function determineWinnings() {
         lossNumber++;
         console.log(dirt + ", " + wood + ", " + stone);
         resetItem();
+        addLoseText();
         console.log("You Lose!");
         console.log(youHave);
         //showLossMessage();
