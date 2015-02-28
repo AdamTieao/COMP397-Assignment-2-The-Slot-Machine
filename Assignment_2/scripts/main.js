@@ -61,6 +61,12 @@ var btnBet10;
 var btnBet100;
 var background;
 var btnSpin;
+var betMoney;
+var addedBet;
+var textMoney;
+var textBet;
+var textWinnings;
+var textJackpot;
 
 // Bet Items
 var apple = 0;
@@ -110,48 +116,112 @@ function gameLoop() {
 }
 
 function btnSpinClicked(event) {
-    youHave = youHave - playerBet;
-    console.log("Spin Button Clicked");
-    spinResult = Reels();   
-    
+    if (youHave != 0) {
+        if (playerBet != 0) {
+            youHave = youHave - playerBet;
+            console.log("Spin Button Clicked");
+            spinResult = Reels();
 
-    // Iterate over the number of reels
-    for (var index = 0; index < NUM_REELS; index++) {
-        reelContainers[index].removeAllChildren();
-        tiles[index] = new createjs.Bitmap("images/items/itm" + spinResult[index] + ".png");
-        reelContainers[index].addChild(tiles[index]);
+
+            // Iterate over the number of reels
+            for (var index = 0; index < NUM_REELS; index++) {
+                reelContainers[index].removeAllChildren();
+                setTimeout(function () { }, 1000);
+                tiles[index] = new createjs.Bitmap("images/items/itm" + spinResult[index] + ".png");
+                reelContainers[index].addChild(tiles[index]);
+            }
+            determineWinnings();
+            game.removeChild(textMoney)
+            addYouHaveText();
+        }
+        else {
+            alert("Are you kidding me? You cannot win any money without paying!");
+        }
     }
-    determineWinnings();
+    else {
+        alert("You don't have any money now.")
+        restart();
+    }
+
 }
 
+function restart() {
+    if (confirm("Restart the game?")) {
+        game.removeChild(textMoney);
+        game.removeChild(textBet);
+        for (var index = 0; index < NUM_REELS; index++) {
+            reelContainers[index].removeAllChildren();
+        }
+        playerBet = 0;
+        youHave = 1000;
+        jackPot = 5000;
+        addBetText();
+        addYouHaveText();
+    }    
+}
+
+function nothing() { }
+
 function btnResetClicked(event) {
+    game.removeChild(textBet);
     playerBet = 0;
     console.log(playerBet);
+    addBetText();
 }
 
 function btnBet1Clicked(event) {
-    playerBet = playerBet + 1;
+    game.removeChild(textBet);
+    if (playerBet + 1 > youHave) {
+        playerBet = youHave;
+    }
+    else {
+        playerBet = playerBet + 1;
+    }
     console.log(playerBet);
+    addBetText();
 }
 
 function btnBet5Clicked(event) {
-    playerBet = playerBet + 5;
+    game.removeChild(textBet);
+    if (playerBet + 5 > youHave) {
+        playerBet = youHave;
+    }
+    else {
+        playerBet = playerBet + 5;
+    }
     console.log(playerBet);
+    addBetText();
 }
 
 function btnBet10Clicked(event) {
-    playerBet = playerBet + 10;
+    game.removeChild(textBet);
+    if (playerBet + 10 > youHave) {
+        playerBet = youHave;
+    }
+    else {
+        playerBet = playerBet + 10;
+    }
     console.log(playerBet);
+    addBetText();
 }
 
 function btnBet100Clicked(event) {
-    playerBet = playerBet + 100;
+    game.removeChild(textBet);
+    if (playerBet + 100 > youHave) {
+        playerBet = youHave;
+    }
+    else {
+        playerBet = playerBet + 100;
+    }
     console.log(playerBet);
+    addBetText();
 }
 
 function btnBetMaxClicked(event) {
+    game.removeChild(textBet);
     playerBet = youHave;
     console.log(playerBet);
+    addBetText();
 }
 
 /* Utility function to check if a value falls within a range of bounds */
@@ -164,9 +234,27 @@ function checkRange(value, lowerBounds, upperBounds) {
     }
 }
 
+function addBetText() {
+    textBet = new createjs.Text(playerBet, "bold 86px Arial");
+    game.addChild(textBet);
+    textBet.x = 10;
+    textBet.y = 10;    
+}
+
+function addYouHaveText() {
+    textMoney = new createjs.Text(youHave, "bold 86px Arial");
+    game.addChild(textMoney);
+    textMoney.x = 10;
+    textMoney.y = 100;
+}
+
 function createUI() {
     background = new createjs.Bitmap("images/slot machine-V3.png");
-    game.addChild(background); // Add the background to the game container
+    game.addChild(background); // Add the background to the game container 
+
+    addBetText();
+    addYouHaveText();
+    
 
     for (var index = 0; index < NUM_REELS; index++) {
         reelContainers[index] = new createjs.Container();
